@@ -1,4 +1,4 @@
-﻿// ask for input
+// ask for input
 Console.WriteLine("Enter 1 to create data file.");
 Console.WriteLine("Enter 2 to parse data.");
 Console.WriteLine("Enter anything else to quit.");
@@ -36,7 +36,7 @@ if (resp == "1")
         }
         // M/d/yyyy,#|#|#|#|#|#|#
         // Console.WriteLine($"{dataDate:M/d/yy},{string.Join("|", hours)}");
-        sw.WriteLine($"{dataDate:M/d/yyyy},{string.Join("|", hours)}");
+        sw.WriteLine($"{dataDate:M/d/yyyy}, {string.Join("|", hours)}");
         // add 1 week to date
         dataDate = dataDate.AddDays(7);
     }
@@ -44,6 +44,22 @@ if (resp == "1")
 }
 else if (resp == "2")
 {
-    // TODO: parse data file
-
+//Parse data file
+string file = "data.txt";
+StreamReader sr = new StreamReader(file);
+    while (!sr.EndOfStream)
+    {
+        string line = sr.ReadLine();
+            // convert string to array
+            string[] arr = line.Split(',');
+            string[] data = arr[1].Split('|');
+            DateTime dt = DateTime.Parse(arr[0]);
+                // display array data
+                Console.WriteLine($"Week of {dt:MMM}, {dt:dd}, {dt:yyyy}");
+                Console.WriteLine("Su Mo Tu We Th Fr Sa");
+                Console.WriteLine("-- -- -- -- -- -- --");
+                Console.WriteLine("{0,2} {1,2} {2,2} {3,2} {4,2} {5,2} {6,2}", data[0], data[1], data[2], data[3], data[4], data[5], data[6]);
+            Console.WriteLine("");
+            }
+            sr.Close();
 }
